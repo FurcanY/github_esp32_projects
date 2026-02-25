@@ -33,7 +33,7 @@ Bu task yapısındaki bilgilerin amaçları ise şudur:
 - **fonksiyon pointer:** Task'in çalışma başlangıç adresidir. FreeRTOS ilk defa bu task'e geçtiği zaman PC (program counter) register'ı bu adrese ayarlanır. Return yaparsa task otomatik silinir. 
 - **isim:** İnsanlar tarafından okunabilir bir etikettir. Kernel açısından bir özelliği yoktur.
 - **stac boyutu:**: Her task kendi stack'ine sahiptir. Stackde yerel değişkeler, fonskiyon çağrıları, register değerleri, task parametreleri tutulur. Task içerisinde yapılan göreve göre stack boyutu ayarlanmalıdır. Eğer yetersiz kalırsa `stack overlow` yaşanabilir. 
-- **parameter:** Parametere olarak gönderilern veri, tasl çalıştığı sürece geçerli olmalıdır. Stack'de tanımlı değeri gönderirseniz ve değer silinirse task patlar. 
+- **parameter:** Parametere olarak gönderilern veri, task çalıştığı sürece geçerli olmalıdır. Stack'de tanımlı değeri gönderirseniz ve değer silinirse task patlar. 
 - **öncelik (priority):** yüksek öncelikli taskler daha fazla core'da çalışır. 0-7 için, 0 en düşük öncelikli ve 7 en yüksek öncelikli task olarak tanımlanır. Aynı öncelikli task'lar `round-robin` algoritmasına göre çalışır. Yüksek öncelikli task hazır olduğunda düşük öncelikli task hemen kesilir.
 - **handle:** Kontrol için kullanılır. Handle tanımlanıp verilirse task'ın durumunu öğrenebilir, taski durdurabilir veya tekrardan başlatabiliriz.
 
@@ -96,11 +96,11 @@ Event gerçekleştiğinde bekleme listesindeki TCB'ye ulaşır ve o taskı uyand
 xQueueReceive(queue, &data, portMAX_DELAY);
 // Task, eventListItem ile queue'nun bekleme listesine eklenir
 ```
-EventGrup için basitleştirilmiş bir görsele bakalım:
+EventGroup için basitleştirilmiş bir görsele bakalım:
 
 ![eventlist](./images/task_04.webp)
 
-Her bir task'in xEventlistItem'ı  bekleyen task listesine bağlıdır. Task  hangi kaynağı beklediğini xEventList ile bilir. xEventList ise TCB'ye bağlı olduundan hangi Task'in ne kaynağı beklediğini bilir.
+Her bir task'in xEventlistItem'ı  bekleyen task listesine bağlıdır. Task  hangi kaynağı beklediğini xEventList ile bilir. xEventList ise TCB'ye bağlı olduğundan hangi Task'in ne kaynağı beklediğini bilir.
 
 Bu konuyu daha detaylı daha sonraki yazılarımızda bakabiliriz, şu anda bunu bilsek yeterlidir.
 
@@ -151,9 +151,9 @@ Queue iki task arasında veri taşımak için kullanılır (IPC). Bir task veri 
 
 ![eventlist](./images/task_07.webp)
 
-Görselde ana yapı daha detaylı gösterilmiştir. Task1 üerttiği verileri `ortak_queue` adlı kuyruğa gönderir. Bu kuyruk iki task arasında veri gönderimini sağlar. Task2 ise bu üretilen verileri alır.
+Görselde ana yapı daha detaylı gösterilmiştir. Task1 ürettiği verileri `ortak_queue` adlı kuyruğa gönderir. Bu kuyruk iki task arasında veri gönderimini sağlar. Task2 ise bu üretilen verileri alır.
 
-İki task arasındaki veri gönderim alım snekronizasyonu için ise  EventGroupHandle kullanılır. TASK1'in `CALIS_BIT` adlı tanımladığı bitin durumuna göre TASK2 çalışmasına devam eder veya bekler. Bu sayede queue şişmesi durumu veya aşırı veri tüketimi gibi durumların önüne geçilir. Taskler birbirini beklemez, sadece durumu kontrol eder.
+İki task arasındaki veri gönderim alım senkronizasyonu içinse  `EventGroupHandle` kullanılır. `TASK1`'in `CALIS_BIT` adlı tanımladığı bitin durumuna göre `TASK2` çalışmasına devam eder veya bekler. Bu sayede queue şişmesi durumu veya aşırı veri tüketimi gibi durumların önüne geçilir. Taskler birbirini beklemez, sadece `durumu kontrol eder`.
 
 
 

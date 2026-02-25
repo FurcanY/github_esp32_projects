@@ -143,12 +143,14 @@ void app_main(){
 }
 ```
 ### Mantıklı Kullanım Nasıldır ?
-En mantıklı işlem app_main() içerisinde task oluşturup `app_main` içerisinde return etmektir. Ne demek istiyorum açıklayayım. app_main içeriği bizim ayarlama yaptığımız alan olmalıdır. burada oluşturmak istediğimiz taskler ve gerekli tanımlamalar yapılmalıdır. Sonsuz döngü içerisinde yapmak istediğimiz görevleri ise tanımladığımız task'ler içerisinde olmalıdır.
+En mantıklı işlem app_main() içerisinde task oluşturup `app_main` içerisinde return etmektir. Ne demek istiyorum açıklayayım.
+
+`app_main` içeriği bizim ayarlama yaptığımız alan olmalıdır. burada oluşturmak istediğimiz taskler ve gerekli tanımlamalar yapılmalıdır. Sonsuz döngü içerisinde yapmak istediğimiz görevleri ise tanımladığımız task'ler içerisinde olmalıdır.
 
 app_main = setup fonksiyonu olarak kullanılmalıdır.
 taskler= app_main içerisinde tanımlanır ve daha sonra scheduler bu task'leri kullanır.
 
-Bu mimaride işlemler yaparsak FreeRTOS görevlerinde ölçeklendirme yapabilir, kaynakları verimli kullanabiliriz. Daha modüler hareket ettiğimiz için yönetimi de kolay olacaktır.
+Bu mimaride işlemler yaparsak `FreeRTOS` görevlerinde ölçeklendirme yapabilir, kaynakları verimli kullanabiliriz. Daha modüler hareket ettiğimiz için yönetimi de kolay olacaktır.
 
 Ayrıca bir task çöktüğü zaman diğerleri çalışmaya devam eder ve daha stabil bir sistemimiz olur.
 
